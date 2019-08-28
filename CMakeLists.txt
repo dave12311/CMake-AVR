@@ -6,24 +6,34 @@ SET(CMAKE_C_STANDARD 99)
 SET(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 SET(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
-#============================================================================================
-project(Sample_Project C)
-SET(DEVICE atmega328p)
-SET(FREQ 16000000)
-#============================================================================================
-SET(FILES
-        main.c
-        )
 
 SET(FLASH NO CACHE BOOL "Flash")
 #============================================================================================
+#===================================== SETTINGS =============================================
+#============================================================================================
+
+# Project Settings
+project(Sample_Project C)
+SET(FILES
+	main.c
+	)
+
+# MCU Settings
+SET(DEVICE atmega328p)
+SET(FREQ 16000000)
+
+# Programmer Settings
+SET(PROGRAMMER avrispmkii)
+SET(PORT usb)
+
+# System Settings
 SET(AVRBIN "/bin")
+INCLUDE_DIRECTORIES("/usr/avr/include")
+#============================================================================================
+#============================================================================================
 SET(AVROBJCOPY avr-objcopy)
 SET(AVRSIZE avr-size)
 SET(AVRDUDE avrdude)
-
-SET(PROGRAMMER avrispmkii)
-SET(PORT usb)
 #============================================================================================
 SET(CMAKE_C_COMPILER ${AVRBIN}/avr-gcc)
 SET(CMAKE_CXX_COMPILER ${AVRBIN}/avr-g++)
@@ -37,7 +47,6 @@ SET_PROPERTY(DIRECTORY PROPERTY ADDITIONAL_MAKE_CLEAN_FILES
         "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_PROJECT_NAME}.hex"
         "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_PROJECT_NAME}.eep"
 )
-INCLUDE_DIRECTORIES("/usr/avr/include")
 #============================================================================================
 ADD_EXECUTABLE(${CMAKE_PROJECT_NAME} ${FILES})
 
